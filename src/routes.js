@@ -60,12 +60,12 @@ const Dashboard = React.lazy(() => import("./views/dashboard/Dashboard"));
 // const Users = React.lazy(() => import("./views/users/Users"));
 // const User = React.lazy(() => import("./views/users/User"));
 
-const Users = React.lazy(() => import("./components/User"));
+const Product = React.lazy(() => import("./components/Product/Product"));
 
 
 const routes = [
   { path: "/", exact: true, name: "Home" },
-  { path: "/users", exact: true, name: "Users", component: Users },
+  { path: "/products", exact: true, name: "Product", component: Product },
   // { path: "/users", name: "Users", component: Products },
   { path: "/dashboard", name: "Dashboard", component: Dashboard },
   // { path: "/theme", name: "Theme", component: Colors, exact: true },
