@@ -10,10 +10,11 @@ import React, { useEffect, useState } from "react";
 import "./Products.css";
 
 import CIcon from "@coreui/icons-react";
-import ModalAddNewProduct from "./ModalAddNewProduct";
+import { Link } from "react-router-dom";
 
 const Product = () => {
   const [addNewProduct, setAddNewProduct] = useState(false);
+
   useEffect(() => {
     console.log(addNewProduct);
   }, [addNewProduct]);
@@ -26,13 +27,15 @@ const Product = () => {
             <CCardHeader className="product-header">
               <div>Product</div>
               <div className="product-header-button">
-                <CButton
-                  color="success"
-                  size="sm"
-                  onClick={() => setAddNewProduct((p) => !p)}
-                >
-                  <CIcon name="cil-plus" /> Add New Product
-                </CButton>
+                <Link to="/products/add">
+                  <CButton
+                    color="success"
+                    size="sm"
+                    onClick={() => setAddNewProduct((p) => !p)}
+                  >
+                    <CIcon name="cil-plus" /> Add New Product
+                  </CButton>
+                </Link>
               </div>
             </CCardHeader>
             <CCardBody>
@@ -95,7 +98,6 @@ const Product = () => {
           </CCard>
         </CCol>
       </CRow>
-      <ModalAddNewProduct visible={addNewProduct} />
     </>
   );
 };
