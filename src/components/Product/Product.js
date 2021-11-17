@@ -87,8 +87,15 @@ const Product = () => {
                     </td>
                     <td className="text-center">
                       <div className="product-action">
-                        <CIcon name="cil-pencil" style={{ marginRight: 16 }} />
+                        <Link to="/products/1">
+                          <CIcon
+                            name="cil-pencil"
+                            style={{ marginRight: 16 }}
+                          />
+                        </Link>
+                        {/* <Link> */}
                         <CIcon name="cil-delete" />
+                        {/* </Link> */}
                       </div>
                     </td>
                   </tr>
