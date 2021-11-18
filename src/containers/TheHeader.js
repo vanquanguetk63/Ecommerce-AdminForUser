@@ -21,6 +21,7 @@ import CIcon from "@coreui/icons-react";
 import React from "react";
 // routes config
 import routes from "../routes";
+import { setNavigation } from "src/redux/slice/navSlice";
 
 const TheHeader = () => {
   const dispatch = useDispatch();
@@ -28,16 +29,15 @@ const TheHeader = () => {
 
   const toggleSidebar = () => {
     const val = [true, "responsive"].includes(sidebarShow)
-      ? false
+      ? dispatch(setNavigation())
       : "responsive";
-    dispatch({ type: "set", sidebarShow: val });
+    dispatch(setNavigation());
   };
 
   const toggleSidebarMobile = () => {
     const val = [false, "responsive"].includes(sidebarShow)
-      ? true
+      ? dispatch(setNavigation())
       : "responsive";
-    dispatch({ type: "set", sidebarShow: val });
   };
 
   return (

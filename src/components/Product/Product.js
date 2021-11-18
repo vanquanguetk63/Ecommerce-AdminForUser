@@ -13,12 +13,6 @@ import CIcon from "@coreui/icons-react";
 import { Link } from "react-router-dom";
 
 const Product = () => {
-  const [addNewProduct, setAddNewProduct] = useState(false);
-
-  useEffect(() => {
-    console.log(addNewProduct);
-  }, [addNewProduct]);
-
   return (
     <>
       <CRow>
@@ -31,7 +25,7 @@ const Product = () => {
                   <CButton
                     color="success"
                     size="sm"
-                    onClick={() => setAddNewProduct((p) => !p)}
+                    // onClick={() => setAddNewProduct((p) => !p)}
                   >
                     <CIcon name="cil-plus" /> Add New Product
                   </CButton>

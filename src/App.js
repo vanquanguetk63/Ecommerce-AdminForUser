@@ -26,7 +26,8 @@ class App extends Component {
       <Router>
         <React.Suspense fallback={loading}>
           <Switch>
-            {/* <Route
+            {/* 
+            <Route
               exact
               path="/login"
               name="Login Page"
@@ -51,8 +52,15 @@ class App extends Component {
               render={(props) => <Page500 {...props} />}
             /> */}
             <Route
+              exact
+              path="/login"
+              name="Login Page"
+              exact
+              render={(props) => <Login {...props} />}
+            />
+            <Route
               path="/"
-              name="Home"
+              name="Dashboard"
               render={(props) => <Dashboard {...props} />}
             />
           </Switch>
