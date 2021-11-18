@@ -93,9 +93,9 @@ const Product = () => {
                             style={{ marginRight: 16 }}
                           />
                         </Link>
-                        {/* <Link> */}
-                        <CIcon name="cil-delete" />
-                        {/* </Link> */}
+                        <a>
+                          <CIcon name="cil-delete" />
+                        </a>
                       </div>
                     </td>
                   </tr>

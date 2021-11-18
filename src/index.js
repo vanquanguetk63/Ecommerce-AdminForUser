@@ -12,7 +12,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { icons } from "./assets/icons";
 
 import { Provider } from "react-redux";
-import store from "./store";
+import store from "./redux/store";
 
 React.icons = icons;
 
