@@ -15,16 +15,14 @@ import CIcon from "@coreui/icons-react";
 import React from "react";
 // sidebar nav config
 import navigation from "./_nav";
+import { setNavigation } from "src/redux/slice/navSlice";
 
 const TheSidebar = () => {
   const dispatch = useDispatch();
-  const show = useSelector((state) => state.sidebarShow);
+  const show = useSelector((state) => state.navigation.sidebarShow);
 
   return (
-    <CSidebar
-      show={show}
-      onShowChange={(val) => dispatch({ type: "set", sidebarShow: val })}
-    >
+    <CSidebar show={show} onShowChange={() => dispatch(setNavigation())}>
       <CSidebarBrand className="d-md-down-none" to="/">
         <CIcon
           className="c-sidebar-brand-full"
