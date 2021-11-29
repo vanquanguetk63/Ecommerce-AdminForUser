@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const userSlice = createSlice({
   name: "user",
   initialState: {
-    id: 0,
+    id: "",
     token: "",
     authorities: [],
     username: "",
@@ -11,6 +11,7 @@ export const userSlice = createSlice({
   },
   reducers: {
     setUserToken: (state, action) => {
+      localStorage.setItem("user", JSON.stringify(action.payload));
       state.id = action.payload.id;
       state.token = action.payload.token;
       state.authorities = action.payload.authorities;

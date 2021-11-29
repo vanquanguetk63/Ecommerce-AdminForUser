@@ -19,7 +19,7 @@ import {
 import CIcon from "@coreui/icons-react";
 import { Formik } from "formik";
 import { login } from "src/services/auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUserToken } from "../../../redux/slice/userSlice";
 import { useHistory } from "react-router-dom";
 

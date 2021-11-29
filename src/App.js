@@ -1,9 +1,15 @@
 import "./scss/style.scss";
 
-import React, { Component } from "react";
-import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import React, { useEffect, useMemo } from "react";
+import {
+  Route,
+  BrowserRouter as Router,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 
 import Dashboard from "./pages/Dashboard";
+import useToken from "./hooks/useToken";
 
 const loading = (
   <div className="pt-3 text-center">
@@ -16,58 +22,51 @@ const TheLayout = React.lazy(() => import("./containers/TheLayout"));
 
 // Pages
 const Login = React.lazy(() => import("./views/pages/login/Login"));
-const Register = React.lazy(() => import("./views/pages/register/Register"));
-const Page404 = React.lazy(() => import("./views/pages/page404/Page404"));
-const Page500 = React.lazy(() => import("./views/pages/page500/Page500"));
+// const Register = React.lazy(() => import("./views/pages/register/Register"));
+// const Page404 = React.lazy(() => import("./views/pages/page404/Page404"));
+// const Page500 = React.lazy(() => import("./views/pages/page500/Page500"));
 
-class App extends Component {
-  render() {
-    return (
-      <Router>
-        <React.Suspense fallback={loading}>
-          <Switch>
-            {/* 
-            <Route
-              exact
-              path="/login"
-              name="Login Page"
-              render={(props) => <Login {...props} />}
-            />
-            <Route
-              exact
-              path="/register"
-              name="Register Page"
-              render={(props) => <Register {...props} />}
-            />
-            <Route
-              exact
-              path="/404"
-              name="Page 404"
-              render={(props) => <Page404 {...props} />}
-            />
-            <Route
-              exact
-              path="/500"
-              name="Page 500"
-              render={(props) => <Page500 {...props} />}
-            /> */}
-            <Route
-              exact
-              path="/login"
-              name="Login Page"
-              exact
-              render={(props) => <Login {...props} />}
-            />
-            <Route
-              path="/"
-              name="Dashboard"
-              render={(props) => <Dashboard {...props} />}
-            />
-          </Switch>
-        </React.Suspense>
-      </Router>
-    );
-  }
-}
+const PrivateRoute = ({ component, authen, ...rest }) => {
+  return (
+    <Route
+      {...rest}
+      render={(props) =>
+        authen === true ? (
+          <Dashboard {...props} />
+        ) : (
+          <Redirect
+            to={{ pathname: "/login", state: { from: props.location } }}
+          />
+        )
+      }
+    />
+  );
+};
+
+const App = () => {
+  const { token, setToken } = useToken();
+
+  const isAuth = useMemo(() => token.id !== "", [token.id]);
+
+  useEffect(() => {
+    console.log(isAuth);
+  }, [isAuth]);
+
+  return (
+    <Router>
+      <React.Suspense fallback={loading}>
+        <Switch>
+          <Route
+            exact
+            path="/login"
+            name="Login Page"
+            render={(props) => <Login {...props} />}
+          />
+          <PrivateRoute authen={isAuth} path="/" component={Dashboard} />
+        </Switch>
+      </React.Suspense>
+    </Router>
+  );
+};
 
 export default App;
