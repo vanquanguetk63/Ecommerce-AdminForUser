@@ -7,10 +7,24 @@ export const getHeaderAuthen = () => {
       "Content-Type": "application/json;charset=UTF-8",
       "Access-Control-Allow-Origin": "*",
       //   authorization: `${profile}`,
-      tokenTimeStamp: localStorage.getItem("tokenTimeStamp"),
+      // tokenTimeStamp: localStorage.getItem("tokenTimeStamp"),
     },
   };
   return axiosConfig;
+};
+
+export const get = (url, params) => {
+  return new Promise((resolve, rejected) => {
+    axios
+      .get(domain + url, getHeaderAuthen())
+      .then(function (response) {
+        return resolve(response.data);
+      })
+      .catch(function (error) {
+        // handleError(error, rejected);
+        // return rejected(error)
+      });
+  });
 };
 
 export const post = (url, params) => {

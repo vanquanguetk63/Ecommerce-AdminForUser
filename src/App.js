@@ -1,6 +1,6 @@
 import "./scss/style.scss";
 
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 import {
   Route,
   BrowserRouter as Router,
@@ -18,7 +18,7 @@ const loading = (
 );
 
 // Containers
-const TheLayout = React.lazy(() => import("./containers/TheLayout"));
+// const TheLayout = React.lazy(() => import("./containers/TheLayout"));
 
 // Pages
 const Login = React.lazy(() => import("./views/pages/login/Login"));
@@ -45,12 +45,7 @@ const PrivateRoute = ({ component, authen, ...rest }) => {
 
 const App = () => {
   const { token, setToken } = useToken();
-
   const isAuth = useMemo(() => token.id !== "", [token.id]);
-
-  useEffect(() => {
-    console.log(isAuth);
-  }, [isAuth]);
 
   return (
     <Router>
