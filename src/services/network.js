@@ -1,19 +1,32 @@
 import axios from "axios";
 import { domain } from "./domain";
 
+const dataLocal = localStorage.getItem("user");
+const objUser = JSON.parse(dataLocal);
+
 export const getHeaderAuthen = () => {
   const axiosConfig = {
     headers: {
       "Content-Type": "application/json;charset=UTF-8",
       "Access-Control-Allow-Origin": "*",
-      //   authorization: `${profile}`,
-      // tokenTimeStamp: localStorage.getItem("tokenTimeStamp"),
+      Authorization: `Beaer ${objUser?.token}`,
     },
   };
   return axiosConfig;
 };
 
-export const get = (url, params) => {
+export const getHeader = () => {
+  const axiosConfig = {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+      "Access-Control-Allow-Origin": "*",
+      // Authorization: `Beaer ${objUser?.token}`,
+    },
+  };
+  return axiosConfig;
+};
+
+export const getAuthen = (url, params) => {
   return new Promise((resolve, rejected) => {
     axios
       .get(domain + url, getHeaderAuthen())
@@ -21,13 +34,28 @@ export const get = (url, params) => {
         return resolve(response.data);
       })
       .catch(function (error) {
-        // handleError(error, rejected);
+        // handleError(error, reject ed);
+        // return rejected(error)
+      });
+  });
+};
+
+export const get = (url) => {
+  return new Promise((resolve, rejected) => {
+    axios
+      .get(domain + url, getHeader())
+      .then(function (response) {
+        return resolve(response.data);
+      })
+      .catch(function (error) {
+        // handleError(error, reject ed);
         // return rejected(error)
       });
   });
 };
 
 export const post = (url, params) => {
+  console.log(params);
   return new Promise((resolve, rejected) => {
     axios
       .post(domain + url, params, getHeaderAuthen())

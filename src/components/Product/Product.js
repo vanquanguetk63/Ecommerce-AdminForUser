@@ -11,57 +11,18 @@ import "./Products.css";
 
 import CIcon from "@coreui/icons-react";
 import { Link } from "react-router-dom";
-import { get } from "../../services/network";
-
-const ProductItem = ({ item, index }) => {
-  return (
-    <tr>
-      <td>
-        <div>{index + 1}</div>
-      </td>
-      <td>
-        <div>{item?.productName}</div>
-      </td>
-      <td className="text-center">
-        <img
-          src={item?.productImage}
-          alt="admin@bootstrapmaster.com"
-          className="product-image"
-        />
-      </td>
-      <td>
-        <div>
-          Thương hiệu: Lenovo Model: LENOVO IDP5 14ITL05 82FE000GVN Mã SP:
-          GS.007601
-        </div>
-      </td>
-
-      <td>
-        <div>{item?.productPrice}</div>
-      </td>
-      <td>
-        <div>{item?.category?.categoryName}</div>
-      </td>
-      <td className="text-center">
-        <div className="product-action">
-          <Link to="/products/1">
-            <CIcon name="cil-pencil" style={{ marginRight: 16 }} />
-          </Link>
-          <a>
-            <CIcon name="cil-delete" />
-          </a>
-        </div>
-      </td>
-    </tr>
-  );
-};
+import { getAuthen } from "../../services/network";
+import { useSelector } from "react-redux";
 
 const Product = () => {
+  const user = useSelector((state) => state.user);
   const [products, setProducts] = useState();
 
   useEffect(() => {
-    get("/product/getAllProduct").then((res) => setProducts(res.data));
-  }, []);
+    getAuthen(`/product/getByUserId/${user?.id}`).then((res) => {
+      setProducts(res.data);
+    });
+  }, [user, user?.id]);
 
   return (
     <>
@@ -98,7 +59,53 @@ const Product = () => {
                 <tbody>
                   {products?.map((item, index) => {
                     return (
-                      <ProductItem item={item} index={index} key={index} />
+                      <tr key={index}>
+                        <td>
+                          <div>{index + 1}</div>
+                        </td>
+                        <td>
+                          <div>{item?.productName}</div>
+                        </td>
+                        <td className="text-center">
+                          <img
+                            src={item?.productImage}
+                            alt="admin@bootstrapmaster.com"
+                            className="product-image"
+                          />
+                        </td>
+                        <td>
+                          <div>
+                            Thương hiệu: Lenovo Model: LENOVO IDP5 14ITL05
+                            82FE000GVN Mã SP: GS.007601
+                          </div>
+                        </td>
+
+                        <td>
+                          <div>{item?.productPrice}</div>
+                        </td>
+                        <td>
+                          <div>{item?.category?.categoryName}</div>
+                        </td>
+                        <td className="text-center">
+                          <div className="product-action">
+                            <Link to="/products/1">
+                              <CIcon
+                                name="cil-pencil"
+                                style={{ marginRight: 16 }}
+                              />
+                            </Link>
+                            <a
+                              onClick={() => {
+                                setProducts((prods) =>
+                                  prods?.filter((prod) => prod?.id !== item?.id)
+                                );
+                              }}
+                            >
+                              <CIcon name="cil-delete" />
+                            </a>
+                          </div>
+                        </td>
+                      </tr>
                     );
                   })}
                 </tbody>
