@@ -5,6 +5,11 @@ import {
   CCol,
   CButton,
   CRow,
+  CModal,
+  CModalBody,
+  CModalFooter,
+  CModalHeader,
+  CModalTitle,
 } from "@coreui/react";
 import React, { useEffect, useState } from "react";
 import "./Products.css";
@@ -13,10 +18,22 @@ import CIcon from "@coreui/icons-react";
 import { Link } from "react-router-dom";
 import { getAuthen } from "../../services/network";
 import { useSelector } from "react-redux";
+import Modals from "src/components/Modal/Modal";
 
 const Product = () => {
   const user = useSelector((state) => state.user);
   const [products, setProducts] = useState();
+  const [modal, setModal] = useState(false);
+  const [eachItem, setEachItem] = useState({});
+
+  const deleteItem = (item) => {
+    setEachItem(item);
+    setModal((modal) => !modal);
+  };
+
+  const onDeletePress = () => {
+    setModal(false);
+  };
 
   useEffect(() => {
     getAuthen(`/product/getByUserId/${user?.id}`).then((res) => {
@@ -26,6 +43,21 @@ const Product = () => {
 
   return (
     <>
+      {/* <Modals /> */}
+      {/* <CModal show={modal} onClose={setModal}>
+        <CModalHeader closeButton>
+          <CModalTitle>Delete Product</CModalTitle>
+        </CModalHeader>
+        <CModalBody>Do you agree to delete {item?.productName}?</CModalBody>
+        <CModalFooter>
+          <CButton color="primary">Do Something</CButton>{" "}
+          <CButton color="secondary" onClick={() => setModal(false)}>
+            Cancel
+          </CButton>
+        </CModalFooter>
+      </CModal> */}
+      <Modals item={eachItem} isOpen={modal} onDeletePress={onDeletePress} />
+
       <CRow>
         <CCol>
           <CCard>
@@ -94,13 +126,7 @@ const Product = () => {
                                 style={{ marginRight: 16 }}
                               />
                             </Link>
-                            <a
-                              onClick={() => {
-                                setProducts((prods) =>
-                                  prods?.filter((prod) => prod?.id !== item?.id)
-                                );
-                              }}
-                            >
+                            <a onClick={() => deleteItem(item)}>
                               <CIcon name="cil-delete" />
                             </a>
                           </div>

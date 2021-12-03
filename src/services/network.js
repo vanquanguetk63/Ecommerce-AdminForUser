@@ -20,13 +20,12 @@ export const getHeader = () => {
     headers: {
       "Content-Type": "application/json;charset=UTF-8",
       "Access-Control-Allow-Origin": "*",
-      // Authorization: `Beaer ${objUser?.token}`,
     },
   };
   return axiosConfig;
 };
 
-export const getAuthen = (url, params) => {
+export const getAuthen = (url) => {
   return new Promise((resolve, rejected) => {
     axios
       .get(domain + url, getHeaderAuthen())
@@ -55,10 +54,24 @@ export const get = (url) => {
 };
 
 export const post = (url, params) => {
-  console.log(params);
   return new Promise((resolve, rejected) => {
     axios
       .post(domain + url, params, getHeaderAuthen())
+      .then((response) => {
+        console.log("--response--", response);
+        return resolve(response.data);
+      })
+      .catch((error) => {
+        console.log(error.respsonse);
+        // self.handleError(error, rejected);
+      });
+  });
+};
+
+export const deleteServices = (url, params) => {
+  return new Promise((resolve, rejected) => {
+    axios
+      .delete(domain + url, params, getHeaderAuthen())
       .then((response) => {
         console.log("--response--", response);
         return resolve(response.data);
