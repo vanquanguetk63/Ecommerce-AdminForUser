@@ -5,11 +5,6 @@ import {
   CCol,
   CButton,
   CRow,
-  CModal,
-  CModalBody,
-  CModalFooter,
-  CModalHeader,
-  CModalTitle,
 } from "@coreui/react";
 import React, { useEffect, useState } from "react";
 import "./Products.css";

@@ -46,10 +46,9 @@ const PrivateRoute = ({ component, authen, ...rest }) => {
 };
 
 const App = () => {
-  const { token, setToken } = useToken();
+  const { token } = useToken();
   const isAuth = useMemo(() => token?.id !== undefined, [token?.id]);
   const dispatch = useDispatch();
-  console.log("isatuh", token?.id);
 
   useEffect(() => {
     if (token?.id !== "") {

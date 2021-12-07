@@ -19,12 +19,10 @@ import UploadImage from "../../assets/images/upload-image.png";
 import { Formik } from "formik";
 import { get, post } from "../../services/network";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 
 const AddProduct = () => {
   const [category, setCategory] = useState();
   const userId = useSelector((state) => state.user?.id);
-  const history = useHistory();
 
   const schema = yup
     .object({

@@ -9,12 +9,7 @@ import {
   CSubheader,
   CToggler,
 } from "@coreui/react";
-import {
-  TheHeaderDropdown,
-  TheHeaderDropdownMssg,
-  TheHeaderDropdownNotif,
-  TheHeaderDropdownTasks,
-} from "./index";
+import { TheHeaderDropdown } from "./index";
 import { useDispatch, useSelector } from "react-redux";
 
 import CIcon from "@coreui/icons-react";

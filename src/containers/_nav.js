@@ -1,6 +1,5 @@
 import CIcon from "@coreui/icons-react";
 import React from "react";
-import { icons } from "src/assets/icons";
 
 const _nav = [
   {
