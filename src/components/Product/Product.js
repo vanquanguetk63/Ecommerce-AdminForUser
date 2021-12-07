@@ -120,7 +120,7 @@ const Product = () => {
                         </td>
                         <td className="text-center">
                           <div className="product-action">
-                            <Link to="/products/1">
+                            <Link to={`/products/${item?.id}`}>
                               <CIcon
                                 name="cil-pencil"
                                 style={{ marginRight: 16 }}
