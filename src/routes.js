@@ -1,4 +1,5 @@
 import React from "react";
+import Order from "./components/Order/Order";
 import AddProduct from "./components/Product/AddProduct";
 import EditProduct from "./components/Product/EditProduct";
 
@@ -78,6 +79,12 @@ const routes = [
     exact: true,
     name: "Edit Product",
     component: EditProduct,
+  },
+  {
+    path: "/orders",
+    exact: true,
+    name: "Order",
+    component: Order,
   },
   // { path: "/users", name: "Users", component: Products },
   { path: "/dashboard", name: "Dashboard", component: Dashboard },
