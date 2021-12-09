@@ -1,32 +1,39 @@
-import React from 'react'
+import React from "react";
 import {
   CBadge,
   CDropdown,
   CDropdownItem,
   CDropdownMenu,
   CDropdownToggle,
-  CImg
-} from '@coreui/react'
-import CIcon from '@coreui/icons-react'
+  CImg,
+} from "@coreui/react";
+import CIcon from "@coreui/icons-react";
+import { removeUserToken } from "src/redux/slice/userSlice";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 const TheHeaderDropdown = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const removeToken = () => {
+    dispatch(removeUserToken());
+    setTimeout(() => history.push("/login"), 500);
+  };
+
   return (
-    <CDropdown
-      inNav
-      className="c-header-nav-items mx-2"
-      direction="down"
-    >
+    <CDropdown inNav className="c-header-nav-items mx-2" direction="down">
       <CDropdownToggle className="c-header-nav-link" caret={false}>
         <div className="c-avatar">
           <CImg
-            src={'avatars/6.jpg'}
+            src={"avatars/6.jpg"}
             className="c-avatar-img"
             alt="admin@bootstrapmaster.com"
           />
         </div>
       </CDropdownToggle>
       <CDropdownMenu className="pt-0" placement="bottom-end">
-        <CDropdownItem
+        {/* <CDropdownItem
           header
           tag="div"
           color="light"
@@ -79,14 +86,15 @@ const TheHeaderDropdown = () => {
           Projects
           <CBadge color="primary" className="mfs-auto">42</CBadge>
         </CDropdownItem>
+        <CDropdownItem divider /> */}
         <CDropdownItem divider />
-        <CDropdownItem>
+        <CDropdownItem onClick={removeToken}>
           <CIcon name="cil-lock-locked" className="mfe-2" />
           Lock Account
         </CDropdownItem>
       </CDropdownMenu>
     </CDropdown>
-  )
-}
+  );
+};
 
-export default TheHeaderDropdown
+export default TheHeaderDropdown;

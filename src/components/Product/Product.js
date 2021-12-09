@@ -23,7 +23,7 @@ const Product = () => {
   const [loading, setLoading] = useState(true);
 
   const getProduct = useCallback(() => {
-    getAuthen(`/product/getByUserId/${user?.id}`).then((res) => {
+    getAuthen(`/product/getByUserId/${user.id}`).then((res) => {
       setProducts(res.data);
       setLoading(false);
     });
@@ -54,11 +54,7 @@ const Product = () => {
               <div>Product</div>
               <div className="product-header-button">
                 <Link to="/products/add">
-                  <CButton
-                    color="success"
-                    size="sm"
-                    // onClick={() => setAddNewProduct((p) => !p)}
-                  >
+                  <CButton color="success" size="sm">
                     <CIcon name="cil-plus" /> Add New Product
                   </CButton>
                 </Link>

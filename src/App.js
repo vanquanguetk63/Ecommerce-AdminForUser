@@ -74,14 +74,12 @@ const App = () => {
     <Router>
       <React.Suspense fallback={loading}>
         <Switch>
-          {!isAuth ? (
-            <Route
-              exact
-              path="/login"
-              name="Login Page"
-              render={(props) => <Login {...props} />}
-            />
-          ) : null}
+          <Route
+            exact
+            path="/login"
+            name="Login Page"
+            render={(props) => <Login {...props} />}
+          />
           <PrivateRoute authen={isAuth} path="/" component={Dashboard} />
         </Switch>
       </React.Suspense>
