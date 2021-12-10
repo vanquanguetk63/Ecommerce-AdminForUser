@@ -3,9 +3,6 @@ import {
   CHeader,
   CHeaderBrand,
   CHeaderNav,
-  CHeaderNavItem,
-  CHeaderNavLink,
-  CLink,
   CSubheader,
   CToggler,
 } from "@coreui/react";

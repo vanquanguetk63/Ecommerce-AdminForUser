@@ -7,7 +7,6 @@ import {
   CModalHeader,
   CModalTitle,
 } from "@coreui/react";
-import { deleteServices } from "src/services/network";
 
 const AddModal = ({ item, isOpen, onAddPress, onClose }) => {
   const [modal, setModal] = useState(false);

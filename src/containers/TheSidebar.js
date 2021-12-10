@@ -11,7 +11,6 @@ import {
 } from "@coreui/react";
 import { useDispatch, useSelector } from "react-redux";
 
-import CIcon from "@coreui/icons-react";
 import React from "react";
 // sidebar nav config
 import navigation from "./_nav";

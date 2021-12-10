@@ -1,17 +1,9 @@
 import React, { useState, useCallback, useEffect } from "react";
 
-import {
-  CCard,
-  CCardBody,
-  CCardHeader,
-  CCol,
-  CButton,
-  CRow,
-} from "@coreui/react";
-import { Link } from "react-router-dom";
-import CIcon from "@coreui/icons-react";
+import { CCard, CCardBody, CCardHeader, CCol, CRow, CImg } from "@coreui/react";
 import { useSelector } from "react-redux";
 import { getAuthen } from "src/services/network";
+import CIcon from "@coreui/icons-react";
 
 const Order = () => {
   const user = useSelector((state) => state.user);
@@ -42,69 +34,55 @@ const Order = () => {
           <CCardHeader className="product-header">
             <div>Order</div>
           </CCardHeader>
-          <CCardBody>
-            <table className="table table-hover table-outline mb-0 d-none d-sm-table">
-              <thead className="thead-light">
-                <tr>
-                  <th>Index</th>
-                  <th>Receiver</th>
-                  <th>Address</th>
-                  <th>Phone</th>
-                  <th>Quantity Order</th>
-                  <th>Payment Method</th>
-                  <th>Price</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {products?.map((item, index) => {
-                  return (
-                    <tr key={index}>
-                      <td>
-                        <div>{index + 1}</div>
-                      </td>
-                      <td>
-                        <div>{item?.shipAddress?.nameReceiver}</div>
-                      </td>
-                      <td>
-                        <div>{item?.shipAddress?.phoneNumber}</div>
-                      </td>
-
-                      <td>
-                        <div>
-                          {[
-                            item?.shipAddress?.streetAddress,
-                            item?.shipAddress?.city,
-                          ].join(", ")}
-                        </div>
-                      </td>
-                      <td>
-                        <div>{item?.orderDetails?.length}</div>
-                      </td>
-                      <td>
-                        <div>{item?.payment?.paymentMethod}</div>
-                      </td>
-                      <td>
-                        <div>{item?.productPrice}</div>
-                      </td>
-                      <td>
-                        {/* <div className="product-action">
-                          <Link to={`/products/${item?.id}`}>
-                            <CIcon
-                              name="cil-pencil"
-                              style={{ marginRight: 16 }}
-                            />
-                          </Link>
-                          <a onClick={() => deleteItem(item)}>
-                            <CIcon name="cil-delete" />
-                          </a>
-                        </div> */}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+          <CCardBody style={{ backgroundColor: "rgba(0,0,0,.03)" }}>
+            <CCard style={{ fontSize: 14 }}>
+              <CCardHeader
+                className="product-header"
+                style={{ backgroundColor: "#FFFFFF" }}
+              >
+                <div style={{ fontWeight: "bold" }}>Order Id: 1</div>
+                <div>
+                  <CIcon
+                    name="cil-truck"
+                    style={{ color: "#00bfa5", marginRight: 8 }}
+                  />
+                  Status
+                </div>
+              </CCardHeader>
+              <CCardBody>
+                <CRow>
+                  <CCol xs={{ size: 2 }}>
+                    <CImg
+                      src="https://cf.shopee.vn/file/9e42752c9f0e718d067aaa30063258a5"
+                      fluidGrow
+                      style={{
+                        borderWidth: 1,
+                        borderColor: "#e1e1e1",
+                        borderStyle: "solid",
+                        // backgroundColor: "red",
+                      }}
+                    />
+                  </CCol>
+                  <CCol xs={{ size: 8 }}>
+                    <div>
+                      [ Sạc Pin 1 Năm 2 lần ] Cân Điện Tử Sạc USB Padabanic Cân
+                      Sức Khỏe Gia Đình Chuẩn Xác Hiển Thị Nhiệt Độ Phòng
+                    </div>
+                    <div>Phân loại hàng: 1000Đen sạcUSB+Thước</div>
+                    <div>x1</div>
+                  </CCol>
+                  <CCol
+                    xs={{ size: 2 }}
+                    className="d-flex flex-row justify-content-center align-items-center"
+                  >
+                    <div>
+                      <span>₫168.000</span>
+                      <span> ₫135.000</span>
+                    </div>
+                  </CCol>
+                </CRow>
+              </CCardBody>
+            </CCard>
           </CCardBody>
         </CCard>
       </CCol>
