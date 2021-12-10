@@ -1,6 +1,5 @@
 import CIcon from "@coreui/icons-react";
 import React from "react";
-import { icons } from "src/assets/icons";
 
 const _nav = [
   {
@@ -16,6 +15,12 @@ const _nav = [
     icon: (
       <CIcon name="cil-hamburger-menu" customClasses="c-sidebar-nav-icon" />
     ),
+  },
+  {
+    _tag: "CSidebarNavItem",
+    name: "Orders",
+    to: "/orders",
+    icon: <CIcon name="cil-monitor" customClasses="c-sidebar-nav-icon" />,
   },
 ];
 

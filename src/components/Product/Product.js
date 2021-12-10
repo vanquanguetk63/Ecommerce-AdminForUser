@@ -5,26 +5,29 @@ import {
   CCol,
   CButton,
   CRow,
-  CModal,
-  CModalBody,
-  CModalFooter,
-  CModalHeader,
-  CModalTitle,
+  CSpinner,
 } from "@coreui/react";
-import React, { useEffect, useState } from "react";
-import "./Products.css";
+import React, { useEffect, useState, useCallback } from "react";
 
 import CIcon from "@coreui/icons-react";
 import { Link } from "react-router-dom";
 import { getAuthen } from "../../services/network";
 import { useSelector } from "react-redux";
-import Modals from "src/components/Modal/Modal";
+import Modals from "src/components/Modal/DeleteModal";
 
 const Product = () => {
   const user = useSelector((state) => state.user);
   const [products, setProducts] = useState();
   const [modal, setModal] = useState(false);
   const [eachItem, setEachItem] = useState({});
+  const [loading, setLoading] = useState(true);
+
+  const getProduct = useCallback(() => {
+    getAuthen(`/product/getByUserId/${user.id}`).then((res) => {
+      setProducts(res.data);
+      setLoading(false);
+    });
+  }, [user?.id]);
 
   const deleteItem = (item) => {
     setEachItem(item);
@@ -33,29 +36,15 @@ const Product = () => {
 
   const onDeletePress = () => {
     setModal(false);
+    getProduct();
   };
 
   useEffect(() => {
-    getAuthen(`/product/getByUserId/${user?.id}`).then((res) => {
-      setProducts(res.data);
-    });
-  }, [user, user?.id]);
+    getProduct();
+  }, [getProduct, user, user.id]);
 
   return (
     <>
-      {/* <Modals /> */}
-      {/* <CModal show={modal} onClose={setModal}>
-        <CModalHeader closeButton>
-          <CModalTitle>Delete Product</CModalTitle>
-        </CModalHeader>
-        <CModalBody>Do you agree to delete {item?.productName}?</CModalBody>
-        <CModalFooter>
-          <CButton color="primary">Do Something</CButton>{" "}
-          <CButton color="secondary" onClick={() => setModal(false)}>
-            Cancel
-          </CButton>
-        </CModalFooter>
-      </CModal> */}
       <Modals item={eachItem} isOpen={modal} onDeletePress={onDeletePress} />
 
       <CRow>
@@ -65,11 +54,7 @@ const Product = () => {
               <div>Product</div>
               <div className="product-header-button">
                 <Link to="/products/add">
-                  <CButton
-                    color="success"
-                    size="sm"
-                    // onClick={() => setAddNewProduct((p) => !p)}
-                  >
+                  <CButton color="success" size="sm">
                     <CIcon name="cil-plus" /> Add New Product
                   </CButton>
                 </Link>
@@ -89,51 +74,57 @@ const Product = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {products?.map((item, index) => {
-                    return (
-                      <tr key={index}>
-                        <td>
-                          <div>{index + 1}</div>
-                        </td>
-                        <td>
-                          <div>{item?.productName}</div>
-                        </td>
-                        <td className="text-center">
-                          <img
-                            src={item?.productImage}
-                            alt="admin@bootstrapmaster.com"
-                            className="product-image"
-                          />
-                        </td>
-                        <td>
-                          <div>
-                            Thương hiệu: Lenovo Model: LENOVO IDP5 14ITL05
-                            82FE000GVN Mã SP: GS.007601
-                          </div>
-                        </td>
+                  {loading ? (
+                    <div className="d-flex justify-content-between align-items-center p-4">
+                      <CSpinner color="success" size="lg" />
+                    </div>
+                  ) : (
+                    products?.map((item, index) => {
+                      return (
+                        <tr key={index}>
+                          <td>
+                            <div>{index + 1}</div>
+                          </td>
+                          <td>
+                            <div>{item?.productName}</div>
+                          </td>
+                          <td className="text-center">
+                            <img
+                              src={item?.productImage}
+                              alt="admin@bootstrapmaster.com"
+                              className="product-image"
+                            />
+                          </td>
+                          <td>
+                            <div>
+                              Thương hiệu: Lenovo Model: LENOVO IDP5 14ITL05
+                              82FE000GVN Mã SP: GS.007601
+                            </div>
+                          </td>
 
-                        <td>
-                          <div>{item?.productPrice}</div>
-                        </td>
-                        <td>
-                          <div>{item?.category?.categoryName}</div>
-                        </td>
-                        <td className="text-center">
-                          <div className="product-action">
-                            <Link to={`/products/${item?.id}`}>
-                              <CIcon
-                                name="cil-pencil"
-                                style={{ marginRight: 16 }}
-                              />
-                            </Link>
-                            <a onClick={() => deleteItem(item)}>
-                              <CIcon name="cil-delete" />
-                            </a>
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  })}
+                          <td>
+                            <div>{item?.productPrice}</div>
+                          </td>
+                          <td>
+                            <div>{item?.category?.categoryName}</div>
+                          </td>
+                          <td className="text-center">
+                            <div className="product-action">
+                              <Link to={`/products/${item?.id}`}>
+                                <CIcon
+                                  name="cil-pencil"
+                                  style={{ marginRight: 16 }}
+                                />
+                              </Link>
+                              <a onClick={() => deleteItem(item)}>
+                                <CIcon name="cil-delete" />
+                              </a>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })
+                  )}
                 </tbody>
               </table>
             </CCardBody>

@@ -11,7 +11,6 @@ import {
 } from "@coreui/react";
 import { useDispatch, useSelector } from "react-redux";
 
-import CIcon from "@coreui/icons-react";
 import React from "react";
 // sidebar nav config
 import navigation from "./_nav";
@@ -23,8 +22,8 @@ const TheSidebar = () => {
 
   return (
     <CSidebar show={show} onShowChange={() => dispatch(setNavigation())}>
-      <CSidebarBrand className="d-md-down-none" to="/">
-        <CIcon
+      <CSidebarBrand className="d-md-down-none">
+        {/* <CIcon
           className="c-sidebar-brand-full"
           name="logo-negative"
           height={35}
@@ -33,7 +32,8 @@ const TheSidebar = () => {
           className="c-sidebar-brand-minimized"
           name="sygnet"
           height={35}
-        />
+        /> */}
+        User Administrator
       </CSidebarBrand>
       <CSidebarNav>
         <CCreateElement

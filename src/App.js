@@ -46,10 +46,9 @@ const PrivateRoute = ({ component, authen, ...rest }) => {
 };
 
 const App = () => {
-  const { token, setToken } = useToken();
+  const { token } = useToken();
   const isAuth = useMemo(() => token?.id !== undefined, [token?.id]);
   const dispatch = useDispatch();
-  console.log("isatuh", token?.id);
 
   useEffect(() => {
     if (token?.id !== "") {
@@ -75,14 +74,12 @@ const App = () => {
     <Router>
       <React.Suspense fallback={loading}>
         <Switch>
-          {!isAuth ? (
-            <Route
-              exact
-              path="/login"
-              name="Login Page"
-              render={(props) => <Login {...props} />}
-            />
-          ) : null}
+          <Route
+            exact
+            path="/login"
+            name="Login Page"
+            render={(props) => <Login {...props} />}
+          />
           <PrivateRoute authen={isAuth} path="/" component={Dashboard} />
         </Switch>
       </React.Suspense>

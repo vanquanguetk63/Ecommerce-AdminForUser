@@ -68,6 +68,21 @@ export const post = (url, params) => {
   });
 };
 
+export const put = (url, params) => {
+  return new Promise((resolve, rejected) => {
+    axios
+      .put(domain + url, params, getHeaderAuthen())
+      .then((response) => {
+        console.log("--response--", response);
+        return resolve(response.data);
+      })
+      .catch((error) => {
+        console.log(error.respsonse);
+        // self.handleError(error, rejected);
+      });
+  });
+};
+
 export const deleteServices = (url, params) => {
   return new Promise((resolve, rejected) => {
     axios
