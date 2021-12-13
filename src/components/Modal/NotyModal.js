@@ -8,42 +8,31 @@ import {
   CModalTitle,
 } from "@coreui/react";
 
-const EditModal = ({ item, isOpen, onAddPress, onClose }) => {
+const NotyModal = ({ isOpen, message, onClose }) => {
   const [modal, setModal] = useState(false);
 
   const addItem = async () => {
     setModal(false);
-    onAddPress();
+    onClose();
   };
 
   useEffect(() => {
     setModal(isOpen);
-  }, [isOpen, item]);
+  }, [isOpen, message]);
 
   return (
     <CModal show={modal} onClose={setModal}>
       <CModalHeader closeButton>
-        <CModalTitle>Update Product</CModalTitle>
+        <CModalTitle>Succesfully</CModalTitle>
       </CModalHeader>
-      <CModalBody>
-        Do you wanna confirm to update {item?.product_name}?
-      </CModalBody>
+      <CModalBody>{message}</CModalBody>
       <CModalFooter>
         <CButton color="primary" onClick={addItem}>
-          Update
-        </CButton>
-        <CButton
-          color="secondary"
-          onClick={() => {
-            setModal(false);
-            onClose();
-          }}
-        >
-          Cancel
+          Done
         </CButton>
       </CModalFooter>
     </CModal>
   );
 };
 
-export default EditModal;
+export default NotyModal;

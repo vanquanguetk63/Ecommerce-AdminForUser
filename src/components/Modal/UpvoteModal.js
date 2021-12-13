@@ -8,34 +8,36 @@ import {
   CModalTitle,
   CSpinner,
 } from "@coreui/react";
-import { deleteServices } from "src/services/network";
+import { post } from "src/services/network";
 
-const Modal = ({ item, isOpen, onDeletePress, onClose }) => {
+const UpVoteModal = ({ item, isOpen, onUpvotePress, onClose }) => {
   const [modal, setModal] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const deleteItem = async () => {
+  const addItem = async () => {
     setLoading(true);
-    await deleteServices(`/product/removeProduct/${item?.id}`).then((res) => {
+    await post(`/product/requestUpdateRate/${item?.id}`).then((res) => {
       setLoading(false);
-      onDeletePress();
-      onClose();
+      setModal(false);
+      onClose(res?.messageResponse?.message);
     });
   };
 
   useEffect(() => {
     setModal(isOpen);
-  }, [isOpen]);
+  }, [isOpen, item]);
 
   return (
     <CModal show={modal} onClose={setModal}>
       <CModalHeader closeButton>
-        <CModalTitle>Delete Product</CModalTitle>
+        <CModalTitle>Upvote Product</CModalTitle>
       </CModalHeader>
-      <CModalBody>Do you agree to delete {item?.productName}?</CModalBody>
+      <CModalBody className="d-ll">
+        Do you wanna confirm to upvote {item?.productName}?
+      </CModalBody>
       <CModalFooter>
-        <CButton color="danger" onClick={deleteItem}>
-          {loading ? <CSpinner size="sm" /> : "Delete"}
+        <CButton color="primary" onClick={addItem}>
+          {loading ? <CSpinner size="sm" /> : "Upvote"}
         </CButton>
         <CButton
           color="secondary"
@@ -51,4 +53,4 @@ const Modal = ({ item, isOpen, onDeletePress, onClose }) => {
   );
 };
 
-export default Modal;
+export default UpVoteModal;

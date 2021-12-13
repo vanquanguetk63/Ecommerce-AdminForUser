@@ -6,22 +6,30 @@ import {
   CButton,
   CRow,
   CSpinner,
+  CToast,
+  CToastHeader,
+  CToastBody,
+  CToaster,
 } from "@coreui/react";
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 
 import CIcon from "@coreui/icons-react";
 import { Link } from "react-router-dom";
 import { getAuthen } from "../../services/network";
 import { useSelector } from "react-redux";
 import Modals from "src/components/Modal/DeleteModal";
+import UpVoteModal from "../Modal/UpvoteModal";
+import NotyModal from "../Modal/NotyModal";
 
 const Product = () => {
   const user = useSelector((state) => state.user);
   const [products, setProducts] = useState();
   const [modal, setModal] = useState(false);
+  const [upModal, setUpModal] = useState(false);
   const [eachItem, setEachItem] = useState({});
   const [loading, setLoading] = useState(true);
-
+  const [noty, setNoty] = useState(false);
+  const [message, setMessage] = useState("");
   const getProduct = useCallback(() => {
     getAuthen(`/product/getByUserId/${user.id}`).then((res) => {
       setProducts(res.data);
@@ -32,6 +40,11 @@ const Product = () => {
   const deleteItem = (item) => {
     setEachItem(item);
     setModal((modal) => !modal);
+  };
+
+  const upvoteItem = (item) => {
+    setEachItem(item);
+    setUpModal((modal) => !modal);
   };
 
   const onDeletePress = () => {
@@ -45,8 +58,35 @@ const Product = () => {
 
   return (
     <>
-      <Modals item={eachItem} isOpen={modal} onDeletePress={onDeletePress} />
+      <Modals
+        item={eachItem}
+        isOpen={modal}
+        onDeletePress={onDeletePress}
+        onClose={() => {
+          setModal(false);
+          setMessage("Deleted Successfully.");
+          console.log("12313213");
+          setTimeout(() => setNoty(true), 500);
+        }}
+      />
+      <UpVoteModal
+        item={eachItem}
+        isOpen={upModal}
+        onUpvotePress={upvoteItem}
+        onClose={(message) => {
+          setUpModal(false);
+          if (message === "SUCCESS") {
+            setMessage("Upvoted Successfully.");
+            setTimeout(() => setNoty(true), 500);
+          }
+        }}
+      />
 
+      <NotyModal
+        message={message}
+        isOpen={noty}
+        onClose={() => setNoty(false)}
+      />
       <CRow>
         <CCol>
           <CCard>
@@ -70,7 +110,7 @@ const Product = () => {
                     <th>Description</th>
                     <th>Price</th>
                     <th>Category</th>
-                    <th>Action</th>
+                    <th className="text-center">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -113,11 +153,24 @@ const Product = () => {
                               <Link to={`/products/${item?.id}`}>
                                 <CIcon
                                   name="cil-pencil"
-                                  style={{ marginRight: 16 }}
+                                  style={{ marginRight: 8, cursor: "pointer" }}
                                 />
                               </Link>
-                              <a onClick={() => deleteItem(item)}>
+                              <a
+                                onClick={() => deleteItem(item)}
+                                style={{ marginRight: 8, cursor: "pointer" }}
+                              >
                                 <CIcon name="cil-delete" />
+                              </a>
+
+                              <a
+                                onClick={() => upvoteItem(item)}
+                                style={{ cursor: "pointer" }}
+                              >
+                                <CIcon
+                                  name="cil-arrow-thick-from-bottom"
+                                  fill="red"
+                                />
                               </a>
                             </div>
                           </td>

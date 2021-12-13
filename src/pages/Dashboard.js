@@ -16,6 +16,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (token?.id !== "") {
+      console.log("vaoo...", token);
       const userInfor = {
         id: token?.id,
         token: token?.token,
