@@ -10,14 +10,14 @@ import {
 } from "@coreui/react";
 import { useSelector } from "react-redux";
 import { getAuthen } from "src/services/network";
-import CIcon from "@coreui/icons-react";
+// import CIcon from "@coreui/icons-react";
 import OrderDetail from "./OrderDetail";
 
 const Order = () => {
   const user = useSelector((state) => state.user);
   const [products, setProducts] = useState();
-  const [modal, setModal] = useState(false);
-  const [eachItem, setEachItem] = useState({});
+  // const [modal, setModal] = useState(false);
+  // const [eachItem, setEachItem] = useState({});
   const [loading, setLoading] = useState(true);
 
   const getProduct = useCallback(() => {

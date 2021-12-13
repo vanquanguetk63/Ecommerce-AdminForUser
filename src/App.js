@@ -1,32 +1,21 @@
 import "./scss/style.scss";
 
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 import {
   Route,
   BrowserRouter as Router,
   Switch,
   Redirect,
 } from "react-router-dom";
-
 import Dashboard from "./pages/Dashboard";
 import useToken from "./hooks/useToken";
-import { useDispatch } from "react-redux";
-import { setUserToken } from "./redux/slice/userSlice";
+import Login from "./views/pages/login/Login";
 
 const loading = (
   <div className="pt-3 text-center">
     <div className="sk-spinner sk-spinner-pulse"></div>
   </div>
 );
-
-// Containers
-// const TheLayout = React.lazy(() => import("./containers/TheLayout"));
-
-// Pages
-const Login = React.lazy(() => import("./views/pages/login/Login"));
-// const Register = React.lazy(() => import("./views/pages/register/Register"));
-// const Page404 = React.lazy(() => import("./views/pages/page404/Page404"));
-// const Page500 = React.lazy(() => import("./views/pages/page500/Page500"));
 
 const PrivateRoute = ({ component, authen, ...rest }) => {
   return (
@@ -48,27 +37,6 @@ const PrivateRoute = ({ component, authen, ...rest }) => {
 const App = () => {
   const { token } = useToken();
   const isAuth = useMemo(() => token?.id !== undefined, [token?.id]);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (token?.id !== "") {
-      const userInfor = {
-        id: token?.id,
-        token: token?.token,
-        authorities: token?.authorities,
-        username: token?.username,
-        email: token?.email,
-      };
-      dispatch(setUserToken(userInfor));
-    }
-  }, [
-    dispatch,
-    token?.authorities,
-    token?.email,
-    token?.id,
-    token?.token,
-    token?.username,
-  ]);
 
   return (
     <Router>
@@ -78,7 +46,7 @@ const App = () => {
             exact
             path="/login"
             name="Login Page"
-            render={(props) => <Login {...props} />}
+            render={() => <Login />}
           />
           <PrivateRoute authen={isAuth} path="/" component={Dashboard} />
         </Switch>

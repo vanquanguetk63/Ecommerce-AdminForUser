@@ -41,7 +41,7 @@ const Product = () => {
 
   useEffect(() => {
     getProduct();
-  }, [getProduct, user, user.id]);
+  }, []);
 
   return (
     <>
