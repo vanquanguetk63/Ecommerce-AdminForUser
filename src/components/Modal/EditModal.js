@@ -8,7 +8,7 @@ import {
   CModalTitle,
 } from "@coreui/react";
 
-const AddModal = ({ item, isOpen, onAddPress, onClose }) => {
+const EditModal = ({ item, isOpen, onAddPress, onClose }) => {
   const [modal, setModal] = useState(false);
 
   const addItem = async () => {
@@ -23,12 +23,12 @@ const AddModal = ({ item, isOpen, onAddPress, onClose }) => {
   return (
     <CModal show={modal} onClose={setModal}>
       <CModalHeader closeButton>
-        <CModalTitle>Add Product</CModalTitle>
+        <CModalTitle>Update Product</CModalTitle>
       </CModalHeader>
       <CModalBody>Do you wanna confirm to add {item?.product_name}?</CModalBody>
       <CModalFooter>
         <CButton color="primary" onClick={addItem}>
-          Add
+          Update
         </CButton>
         <CButton
           color="secondary"
@@ -44,4 +44,4 @@ const AddModal = ({ item, isOpen, onAddPress, onClose }) => {
   );
 };
 
-export default AddModal;
+export default EditModal;

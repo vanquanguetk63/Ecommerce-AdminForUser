@@ -20,12 +20,14 @@ import { Formik } from "formik";
 import { get, post } from "../../services/network";
 import { useSelector } from "react-redux";
 import AddModal from "../Modal/AddModal";
+import { useHistory } from "react-router-dom";
 
 const AddProduct = () => {
   const [category, setCategory] = useState();
   const [spinner, setSpinner] = useState(false);
   const [modal, setModal] = useState(false);
   const userId = useSelector((state) => state.user?.id);
+  const history = useHistory();
 
   const schema = yup
     .object({
@@ -79,8 +81,10 @@ const AddProduct = () => {
             user_id: userId?.toString(),
             quantity: values?.quantity,
           }).then((res) => {
-            console.log("res...", res);
             setSpinner(false);
+            setTimeout(() => {
+              history.push("/products");
+            }, 2000);
           });
         };
 

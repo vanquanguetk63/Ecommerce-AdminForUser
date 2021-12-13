@@ -19,7 +19,7 @@ import { useParams } from "react-router";
 import { getAuthen, get, put } from "src/services/network";
 import { useSelector } from "react-redux";
 import { Formik } from "formik";
-import AddModal from "../Modal/AddModal";
+import EditModal from "../Modal/EditModal";
 
 const EditProduct = () => {
   const route = useParams();
@@ -101,7 +101,7 @@ const EditProduct = () => {
 
             return (
               <>
-                <AddModal
+                <EditModal
                   item={values}
                   isOpen={modal}
                   onAddPress={onAddPress}
