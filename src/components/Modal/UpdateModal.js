@@ -6,21 +6,14 @@ import {
   CModalFooter,
   CModalHeader,
   CModalTitle,
-  CSpinner,
 } from "@coreui/react";
-import { post } from "src/services/network";
 
-const UpVoteModal = ({ item, isOpen, onUpvotePress, onClose }) => {
+const UpdateModal = ({ item, isOpen, onUpdatePress, onClose }) => {
   const [modal, setModal] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   const addItem = async () => {
-    setLoading(true);
-    await post(`/product/requestUpdateRate/${item?.id}`).then((res) => {
-      setLoading(false);
-      setModal(false);
-      onClose(res?.messageResponse?.message);
-    });
+    setModal(false);
+    onUpdatePress();
   };
 
   useEffect(() => {
@@ -30,15 +23,12 @@ const UpVoteModal = ({ item, isOpen, onUpvotePress, onClose }) => {
   return (
     <CModal show={modal} onClose={setModal}>
       <CModalHeader closeButton>
-        <CModalTitle>Upvote Product</CModalTitle>
+        <CModalTitle>Update Order</CModalTitle>
       </CModalHeader>
-      <CModalBody className="d-ll">
-        If you want increase rate of {item?.productName}, please transfer to our
-        account bank number: 8888 8888 8888 888.
-      </CModalBody>
+      <CModalBody>Do you wanna confirm to update order: {item?.id}?</CModalBody>
       <CModalFooter>
         <CButton color="primary" onClick={addItem}>
-          {loading ? <CSpinner size="sm" /> : "Upvote"}
+          Update
         </CButton>
         <CButton
           color="secondary"
@@ -54,4 +44,4 @@ const UpVoteModal = ({ item, isOpen, onUpvotePress, onClose }) => {
   );
 };
 
-export default UpVoteModal;
+export default UpdateModal;
