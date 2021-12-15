@@ -32,7 +32,7 @@ const OrderDetail = ({ item }) => {
 
   const onUpdate = async () => {
     await put(`/order/updateOrderShop/${item?.id}`).then((res) => {
-      setMessage("Update Successfully.");
+      setMessage("Approve Successfully.");
       setNoti(true);
     });
   };

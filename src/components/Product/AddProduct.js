@@ -190,7 +190,7 @@ const AddProduct = () => {
                         </div>
                       </CCol>
                       <CCol xs={{ size: 6 }} className="text-center">
-                        <div className="mb-2">
+                        {/* <div className="mb-2">
                           <CImg
                             align="center"
                             src={UploadImage}
@@ -202,7 +202,7 @@ const AddProduct = () => {
                           <CButton size="lg" color="primary">
                             UPLOAD PRODUCT IMAGE
                           </CButton>
-                        </div>
+                        </div> */}
                       </CCol>
                     </CRow>
                     <div className="d-grid gap-2">
