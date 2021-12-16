@@ -29,6 +29,7 @@ import {
   cibCcAmex,
   cilArrowThickFromBottom,
   cilArrowThickFromTop,
+  cilChartLine,
 } from "@coreui/icons";
 import { cifUs, cifBr, cifIn, cifFr, cifEs, cifPl } from "@coreui/icons";
 import {
@@ -234,6 +235,7 @@ export const icons = Object.assign(
     cilTruck,
     cilArrowThickFromBottom,
     cilArrowThickFromTop,
+    cilChartLine,
   },
   {
     cifUs,

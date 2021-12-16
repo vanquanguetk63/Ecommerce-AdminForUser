@@ -1,7 +1,9 @@
 import React from "react";
+import Diagnostic from "./components/Diagnostic/Diagnostic";
 import Order from "./components/Order/Order";
 import AddProduct from "./components/Product/AddProduct";
 import EditProduct from "./components/Product/EditProduct";
+import Excel from "./components/Product/Excel";
 
 // const Toaster = React.lazy(() =>
 //   import("./views/notifications/toaster/Toaster")
@@ -85,6 +87,18 @@ const routes = [
     exact: true,
     name: "Order",
     component: Order,
+  },
+  {
+    path: "/products/add/csv",
+    exact: true,
+    name: "CSV",
+    component: Excel,
+  },
+  {
+    path: "/diagnostic",
+    exact: true,
+    name: "Diagnostic",
+    component: Diagnostic,
   },
   // { path: "/users", name: "Users", component: Products },
   { path: "/dashboard", name: "Dashboard", component: Dashboard },

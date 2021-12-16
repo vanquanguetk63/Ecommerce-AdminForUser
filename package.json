@@ -48,6 +48,7 @@
     "react-router-dom": "^5.2.0",
     "redux": "^4.0.5",
     "sass": "^1.32.8",
+    "xlsx": "^0.17.4",
     "yup": "^0.32.11"
   },
   "devDependencies": {

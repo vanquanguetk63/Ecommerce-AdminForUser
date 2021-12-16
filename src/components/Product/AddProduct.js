@@ -10,17 +10,17 @@ import {
   CLabel,
   CInput,
   CTextarea,
-  CImg,
   CSelect,
   CButton,
 } from "@coreui/react";
 
-import UploadImage from "../../assets/images/upload-image.png";
 import { Formik } from "formik";
 import { get, post } from "../../services/network";
 import { useSelector } from "react-redux";
 import AddModal from "../Modal/AddModal";
 import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
+import CIcon from "@coreui/icons-react";
 
 const AddProduct = () => {
   const [category, setCategory] = useState();
@@ -103,8 +103,13 @@ const AddProduct = () => {
             <CRow>
               <CCol>
                 <CCard>
-                  <CCardHeader>
+                  <CCardHeader className="d-flex flex-row justify-content-between">
                     <div>Add New Product</div>
+                    <Link to="/products/add/csv">
+                      <CButton color="success" size="sm">
+                        <CIcon name="cil-plus" /> Import From Excel
+                      </CButton>
+                    </Link>
                   </CCardHeader>
                   <CCardBody>
                     <CRow>
