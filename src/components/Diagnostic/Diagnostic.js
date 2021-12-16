@@ -29,6 +29,13 @@ const Diagnostic = () => {
     getProduct();
   }, []);
 
+  const formatCurrencyVND = (currency) => {
+    const currencyNumber = currency.toLocaleString("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    });
+    return currencyNumber;
+  };
   return (
     <>
       <CRow>
@@ -68,10 +75,10 @@ const Diagnostic = () => {
                             />
                           </td>
                           <td className="text-center">
-                            {`${numberWithCommas(item?.productQuantity)}VND`}
+                            {`${numberWithCommas(item?.productQuantity)}`}
                           </td>
 
-                          <td>{item?.total}</td>
+                          <td>{formatCurrencyVND(item?.total)}</td>
                           <td>
                             {item?.listUser?.map((item) => item)?.join(", ")}
                           </td>
